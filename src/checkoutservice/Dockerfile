@@ -32,7 +32,7 @@ RUN GOOS=${TARGETOS} GOARCH=${TARGETARCH} CGO_ENABLED=0 go build -ldflags="-s -w
 
 FROM gcr.io/distroless/static
 
-WORKDIR /src/checkoutservice
+WORKDIR /src
 COPY --from=builder /checkoutservice /src/checkoutservice
 
 # Definition of this variable is used by 'skaffold debug' to identify a golang binary.

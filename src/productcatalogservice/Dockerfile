@@ -31,7 +31,7 @@ RUN GOOS=${TARGETOS} GOARCH=${TARGETARCH} CGO_ENABLED=0 go build -ldflags="-s -w
 
 FROM gcr.io/distroless/static
 
-WORKDIR /src/productcatalogservice
+WORKDIR /src
 COPY --from=builder /productcatalogservice ./server
 COPY products.json .
 
