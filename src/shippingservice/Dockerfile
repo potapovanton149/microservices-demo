@@ -18,7 +18,7 @@ ARG BUILDPLATFORM=linux/amd64
 FROM --platform=$BUILDPLATFORM golang:1.27.0-alpine@sha256:4c9fe60190a2a3350ddc51de80d0224b8a6698d12bdfc999fee45ea9d6c46dbc AS builder
 ARG TARGETOS=linux
 ARG TARGETARCH=amd64
-WORKDIR /src
+WORKDIR /src/shippingservice
 
 # restore dependencies
 COPY go.mod go.sum ./
@@ -31,7 +31,7 @@ RUN GOOS=${TARGETOS} GOARCH=${TARGETARCH} CGO_ENABLED=0 go build -ldflags="-s -w
 
 FROM gcr.io/distroless/static
 
-WORKDIR /src
+WORKDIR /src/shippingservice
 COPY --from=builder /go/bin/shippingservice /src/shippingservice
 ENV APP_PORT=50051
 

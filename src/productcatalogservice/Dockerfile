@@ -19,7 +19,7 @@ FROM --platform=$BUILDPLATFORM golang:1.27.0-alpine@sha256:4c9fe60190a2a3350ddc5
 ARG TARGETOS=linux
 ARG TARGETARCH=amd64
 
-WORKDIR /src
+WORKDIR /src/productcatalogservice
 # restore dependencies
 COPY go.mod go.sum ./
 RUN go mod download
@@ -31,7 +31,7 @@ RUN GOOS=${TARGETOS} GOARCH=${TARGETARCH} CGO_ENABLED=0 go build -ldflags="-s -w
 
 FROM gcr.io/distroless/static
 
-WORKDIR /src
+WORKDIR /src/productcatalogservice
 COPY --from=builder /productcatalogservice ./server
 COPY products.json .
 
